@@ -7,7 +7,6 @@
 
 // Dependencies or Plugins - Models - Services - Global Functions
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,6 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../services/services.dart';
 import '../../storage/secure_storage.dart';
-import '../../widgets/loading.dart';
 import '../../widgets/widget.dart';
 
 // STATEFUL WIDGET
@@ -117,117 +115,6 @@ class _HomePageState extends State<HomePage> {
     SystemNavigator.pop();
   }
 
-  // GET FCM - mobile token
-  // getToken() async {
-  //   mToken = await FirebaseMessaging.instance.getToken();
-  //   print("mToken: $mToken");
-  //   var localToken = boxStorage.getNotificationToken();
-  //   print("localToken: $localToken");
-  //   var result = localToken.compareTo(mToken);
-  //   print("result: $result");
-  //   if (result != 0) {
-  //     saveToken(mToken.toString());
-  //     boxStorage.setNotificationToken(mToken.toString());
-  //     userServices.updatePushToken(
-  //         {'notificationToken': mToken.toString()}).then((response) {
-  //       setLoading(false);
-  //       var decodeData = json.decode(response.body);
-  //       print(decodeData);
-  //     });
-  //   }
-  // }
-
-  // Listen FCM Lists
-  // void listenFCM() async {
-  //   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-  //     RemoteNotification? notification = message.notification;
-  //     AndroidNotification? android = message.notification?.android;
-  //     if (notification != null && android != null && !kIsWeb) {
-  //       flutterLocalNotificationsPlugin.show(
-  //         notification.hashCode,
-  //         notification.title,
-  //         notification.body,
-  //         NotificationDetails(
-  //             android: AndroidNotificationDetails(
-  //               channel.id,
-  //               channel.name,
-  //               icon: 'launch_background',
-  //             ),
-  //             iOS: const DarwinNotificationDetails(
-  //               presentAlert: true,
-  //               presentBadge: true,
-  //             )),
-  //       );
-  //     }
-  //   });
-  // }
-
-  // LOAD FCM Notification
-
-  // --- END OF FCM Push Notification Functions ---
-
-  // GET USER DETAILS IN LOCAL STORAGE
-  // getUserDetails() async {
-  //   role = boxStorage.getRole();
-  //   customerId = boxStorage.getCustomerId();
-  //   if (role == "MERCHANT") {
-  //     kycExpiryAlertMsg = boxStorage.getKycAlert();
-  //     onOff = boxStorage.get('merchantStatus') == 'INACTIVE' ? false : true;
-  //   }
-  // }
-
-  // GET ALL NOTIFICATION LIST
-
-  // MobileScanner(
-  //   controller: MobileScannerController(),
-  //   onDetect: (barcodes) {},
-  //   errorBuilder: (p0, p1, p2) {
-  //     return Text("data");
-  //   },
-  // );
-  // try {
-  //   String? qrResult = await MajaScan.startScan(
-  //       title: "Scan QR Code",
-  //       titleColor: Colors.white,
-  //       barColor: Theme.of(context).primaryColor,
-  //       qRCornerColor: Theme.of(context).primaryColor,
-  //       qRScannerColor: Theme.of(context).primaryColor);
-  //   print(qrResult);
-  //   setState(() {
-  //     result = qrResult ?? 'null string ';
-  //   });
-  // } on PlatformException catch (ex) {
-  //   print("----------");
-  //   print(ex);
-  //   if (ex.code == MajaScan.CameraAccessDenied) {
-  //     setState(() {
-  //       result = "Camera permission was denied";
-  //     });
-  //   } else {
-  //     setState(() {
-  //       result = "Unknown Error $ex";
-  //     });
-  //   }
-  // } on FormatException {
-  //   setState(() {
-  //     result = "You pressed the back button before scanning anything";
-  //   });
-  // } catch (ex) {
-  //   setState(() {
-  //     result = "Unknown Error: $ex";
-  //   });
-  // }
-  //if (!mounted) return;
-  // if (result.isEmpty) {
-  //   alertService.failure(context, 'Failure', 'Invalid QR code');
-  // }
-  // print(result);
-  // if (result.isNotEmpty) {
-  //   Navigator.pushNamed(context, "withdrawConfirmation",
-  //       arguments: {'scanData': result});
-  // }
-
-  // CHECKING THE LOCATION PERMISSION
   checkAndRequestLocationPermissions() async {
     var status = await Permission.location.status;
     print(status);
