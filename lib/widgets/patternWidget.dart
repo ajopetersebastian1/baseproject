@@ -7,6 +7,7 @@
 
 // Dependencies or Plugins - Models - Services - Global Functions
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 // STATEFUL WIDGET
 class BackgroundPattern extends StatefulWidget {
@@ -22,25 +23,32 @@ class BackgroundPattern extends StatefulWidget {
 class _BackgroundPatternState extends State<BackgroundPattern> {
   @override
   Widget build(BuildContext context) {
-    //Global Background Pattern Widget
-    return Container(
-        height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/bg-pattern/10.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).padding.top,
-              bottom: MediaQuery.of(context).padding.bottom,
-              left: 25,
-              right: 25,
+    return Scaffold(
+      body: Stack(
+        children: [
+          // Lottie animation background
+          SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Lottie.asset(
+              'assets/lottie/background.json', // Ensure this is a .json file for Lottie animations
+              fit: BoxFit.cover,
             ),
-            child: widget.childData,
           ),
-        ));
+          // Content with SafeArea and SingleChildScrollView
+          SafeArea(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top,
+                bottom: MediaQuery.of(context).padding.bottom,
+                left: 25,
+                right: 25,
+              ),
+              child: widget.childData,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

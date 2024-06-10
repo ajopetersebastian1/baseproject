@@ -10,7 +10,7 @@ class ThemeProvider with ChangeNotifier {
 
   ThemeProvider(this.storageService) {
     selectedPrimaryColor = storageService.get(StorageKeys.primaryColor) == null
-        ? AppColors.primary
+        ? AppColors.primaryOption9
         : Color(storageService.get(StorageKeys.primaryColor));
 
     selectedThemeMode = storageService.get(StorageKeys.themeMode) == null

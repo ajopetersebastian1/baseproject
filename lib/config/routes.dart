@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import '../pages/home/home_page.dart';
 import '../pages/pages.dart';
 
+import '../pages/users/login/login_page.dart';
 import '../providers/providers.dart';
 
 // Custom route Class
@@ -33,6 +34,8 @@ class CustomRoute {
 
         case "splash":
           return const SplashScreen();
+        case "login":
+          return const LoginPage();
         case "home":
           return const HomePage();
       }

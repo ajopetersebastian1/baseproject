@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:baseproject/config/config.dart';
 import 'package:baseproject/services/user_services.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -46,8 +48,6 @@ class _LoginPageState extends State<LoginPage> {
   bool isFinished = false;
   final List<bool> _activeToggleMenu = [true, false];
   AlertService alertWidget = AlertService();
-  final Uri _url = Uri.parse('https://sifr.ae/privacy.html');
-  final Uri _url1 = Uri.parse('https://sifr.ae/terms.html');
 
   @override
   void initState() {
@@ -83,6 +83,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   childData() {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Center(
         child: Form(
       key: _formKey,
@@ -90,19 +91,11 @@ class _LoginPageState extends State<LoginPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/logo/logo2.png',
-                  height: 30, fit: BoxFit.fill),
-              // Text("App Version ${_packageInfo.version.toString()}"),
-            ],
-          ),
           const SizedBox(height: 20),
           Align(
             alignment: Alignment.center,
             child: Text(
-              "Login to your Account",
+              "Switch Monitoring",
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontSize: 25,
@@ -111,14 +104,26 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           const SizedBox(height: 10),
-          Image.asset(Constants.loginImage, height: 150, fit: BoxFit.fill),
+          LottieBuilder.asset("assets/lottie/login_animation.json",
+              height: screenHeight * 0.35, fit: BoxFit.fill),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              "Login to your Account",
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.none),
+            ),
+          ),
           const SizedBox(height: 20),
-          toggledButton(),
+          // toggledButton(),
           const SizedBox(height: 10),
           userNameField(),
           passwordField(),
           const SizedBox(height: 10.0),
-          login(),
+          //login(),
           Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             // forgotUserName(),
             forgotPassword(),
@@ -126,34 +131,7 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 10),
           swipeButton(),
           const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  onTap: () async {
-                    print(await Validators.encrypt('8776'));
-                  },
-                  child: Text('Privacy Policy',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline)),
-                ),
-              ),
-              const Text('|'),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  onTap: () async {},
-                  child: Text('Terms and Conditions',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline)),
-                ),
-              ),
-            ],
-          ),
+
           Text("App Version ${_packageInfo.version.toString()}"),
         ],
       ),
@@ -313,7 +291,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            prefixIcon: Icon(Icons.verified_user_rounded,
+            prefixIcon: Icon(Icons.person_2_outlined,
                 size: 25, color: Theme.of(context).primaryColor),
           ),
           onSaved: (value) {
