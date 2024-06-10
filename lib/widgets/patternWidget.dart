@@ -6,6 +6,7 @@
 *  ===============================================================*/
 
 // Dependencies or Plugins - Models - Services - Global Functions
+import 'package:baseproject/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -31,7 +32,8 @@ class _BackgroundPatternState extends State<BackgroundPattern> {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: Lottie.asset(
-              'assets/lottie/background.json', // Ensure this is a .json file for Lottie animations
+              Assets.lottie
+                  .background, // Ensure this is a .json file for Lottie animations
               fit: BoxFit.cover,
             ),
           ),

@@ -53,8 +53,11 @@ dependencies:
   loading_animation_widget: ^1.2.1
   flutter_windowmanager: ^0.2.0
   flutter_swipe_button: ^2.1.1+1
+  fl_chart: ^0.68.0
 
 dev_dependencies:
+  build_runner:
+  flutter_gen_runner:
   flutter_test:
     sdk: flutter
 
@@ -79,6 +82,7 @@ flutter:
   assets:
     - assets/
     - assets/lottie/
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

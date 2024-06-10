@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:baseproject/config/config.dart';
+import 'package:baseproject/gen/assets.gen.dart';
 import 'package:baseproject/services/user_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -104,7 +105,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           const SizedBox(height: 10),
-          LottieBuilder.asset("assets/lottie/login_animation.json",
+
+          LottieBuilder.asset(Assets.lottie.loginAnimation,
               height: screenHeight * 0.35, fit: BoxFit.fill),
           Align(
             alignment: Alignment.center,
@@ -223,53 +225,6 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       _isLoading = tf;
     });
-  }
-
-  toggledButton() {
-    return Center(
-      child: Container(
-        height: 45,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border:
-                Border.all(width: 1.5, color: Theme.of(context).primaryColor),
-            borderRadius: BorderRadius.circular(50)),
-        child: ToggleButtons(
-          borderWidth: 2,
-          borderColor: Colors.white,
-          selectedBorderColor: Colors.white,
-          borderRadius: BorderRadius.circular(50),
-          tapTargetSize: MaterialTapTargetSize.padded,
-          color: Theme.of(context).primaryColor,
-          fillColor: Theme.of(context).primaryColor,
-          selectedColor: Colors.white,
-          splashColor: Theme.of(context).primaryColor,
-          textStyle: const TextStyle(fontWeight: FontWeight.bold),
-          renderBorder: true,
-          onPressed: (int index) {
-            if (index == 1) {
-              Navigator.pushNamed(context, 'role');
-              // Navigator.pushNamed(context, 'signUp');
-            }
-          },
-          isSelected: _activeToggleMenu,
-          children: const <Widget>[
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 32),
-                child: Text(
-                  "Login",
-                  style: TextStyle(fontSize: 14),
-                )),
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 35),
-                child: Text(
-                  "SignUp",
-                  style: TextStyle(fontSize: 14),
-                )),
-          ],
-        ),
-      ),
-    );
   }
 
   userNameField() {
@@ -465,7 +420,8 @@ class _LoginPageState extends State<LoginPage> {
         activeThumbColor: Theme.of(context).primaryColor,
         activeTrackColor: Theme.of(context).primaryColor.withOpacity(0.7),
         onSwipe: () {
-          submitLoginForm();
+          Navigator.pushReplacementNamed(context, 'monitoring');
+          // submitLoginForm();
         },
         child: const Text(
           "Swipe to Login",

@@ -8,6 +8,7 @@
 *  ===============================================================*/
 
 // Dependencies or Plugins - Models - Services - Global Functions
+import 'package:baseproject/pages/monitoring/switch_monitoring.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,9 +39,11 @@ class CustomRoute {
           return const LoginPage();
         case "home":
           return const HomePage();
+        case "monitoring":
+          return const SwitchMonitoring();
       }
       return const Scaffold(
-        body: Center(child: Text("wrong RouteSt")),
+        body: Center(child: Text("wrong Route")),
       );
     });
   }
