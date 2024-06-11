@@ -18,7 +18,7 @@ class AppThemes {
               color: isDark ? Colors.grey.shade50 : Colors.black54,
               fontWeight: FontWeight.w700),
           bodyMedium: TextStyle(
-            color: primaryColor,
+            color: isDark ? Colors.grey.shade50 : Colors.black87,
           ),
           bodyLarge: TextStyle(
             color: isDark ? Colors.white70 : primaryColor,
