@@ -11,6 +11,7 @@ class EndPoints {
     * This End Points URL are based of development and production
   */
   static const baseApi9502 = 'https://sandboxdev.omaemirates.com:9502';
+  static const baseSwitchMonitoring = 'http://172.29.100.221:9508';
   static const baseApi9503 = 'https://sandboxdev.omaemirates.com:9503';
   static const baseApi8988 = 'https://softposreceipt.omaemirates.com:8988';
   static const serviceUrl =
@@ -30,7 +31,7 @@ class EndPoints {
     * User Related APIs
   */
   static const loginAPI = "/NanoCustomerService/v1/login";
-  static const registerAPI = "$nanoServiceUrl/userRegistration";
+  static const dashBoardData = "/NanoPay/Middleware/UiApi/getTransactionDashboardData";
 
   /*
     *  Local api development

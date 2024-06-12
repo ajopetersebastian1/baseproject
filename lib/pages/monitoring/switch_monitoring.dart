@@ -1,4 +1,5 @@
 import 'package:baseproject/gen/assets.gen.dart';
+import 'package:baseproject/services/monitoring_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ class SwitchMonitoring extends StatefulWidget {
 
 class _SwitchMonitoringState extends State<SwitchMonitoring>
     with SingleTickerProviderStateMixin {
+ 
   late DataMonitoringProvider dataMonitoringProvider;
   bool isDarkMode = false;
   late TabController _tabController;

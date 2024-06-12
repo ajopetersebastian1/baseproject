@@ -1,3 +1,4 @@
+import 'package:baseproject/services/monitoring_service.dart';
 import 'package:flutter/material.dart';
 
 // ignore: unused_import
@@ -7,6 +8,14 @@ import '../pages/monitoring/models/table_model.dart';
 class DataMonitoringProvider with ChangeNotifier {
   var headers = ["Schemes", "Approved", "Decline", "Reversal", "%"];
   var headereTwo = ["Overall", "Approved", "Decline", "Reversal", "%"];
+  MonitoringService monitoringService = MonitoringService();
+  var requestModel = {
+    "appProductId": "6",
+    "instId": "ADIBOMA0001",
+    "processDate": "2024-06-06",
+    "apiType": "3"
+  };
+  dynamic response;
   List<MonitoringTableModel> uiData = [];
   List<ChartDataModel> chartDataModel = [
     ChartDataModel(
@@ -97,6 +106,9 @@ class DataMonitoringProvider with ChangeNotifier {
         reversal: 334,
         percentage: 43.0),
   ];
+  getDashboardData() async {
+    response = await monitoringService.getDashboardData(requestModel);
+  }
 
   setDefaultValues() {
     uiData = _twoHours;
