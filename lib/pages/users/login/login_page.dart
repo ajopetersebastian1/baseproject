@@ -6,7 +6,6 @@ import 'package:baseproject/gen/assets.gen.dart';
 import 'package:baseproject/services/user_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -14,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/login_models.dart';
 import '../../../providers/providers.dart';
+import '../../../pub_codes/swipe_button.dart';
 import '../../../storage/secure_storage.dart';
 import '../../../widgets/app/alert_service.dart';
 import '../../../widgets/loading.dart';
