@@ -1,10 +1,3 @@
-/* ===============================================================
-| Project : SIFR
-| Page    : VALIDATORS.DART
-| Date    : 22-MAR-2023
-|
-*  ===============================================================*/
-
 // Dependencies
 import 'package:aes256gcm/aes256gcm.dart';
 import 'package:encrypt/encrypt.dart';

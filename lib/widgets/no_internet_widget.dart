@@ -29,8 +29,8 @@ class NoInternetPage extends StatelessWidget {
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(Constants.noInternetImage,
-                    height: 250, fit: BoxFit.fill),
+                // Image.asset(Constants.noInternetImage,
+                //  height: 250, fit: BoxFit.fill),
                 const SizedBox(
                   height: 20,
                 ),

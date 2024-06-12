@@ -1,10 +1,3 @@
-/* ===============================================================
-| Project : SIFR
-| Page    : STATIC_FUNCTIONS.DART
-| Date    : 21-MAR-2023
-|
-*  ===============================================================*/
-
 // Dependencies
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,10 +1,3 @@
-/* ===============================================================
-| Project : SIFR
-| Page    : GLOBAL.DART
-| Date    : 21-MAR-2023
-|
-*  ===============================================================*/
-// Dependencies or Plugins - Models - Services - Global Functions
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
@@ -33,21 +26,21 @@ class Global {
   ];
 
   // No data found widget
-  static noDataFound(String title) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            Constants.noDataFoundImage,
-            height: 250,
-          ),
-          Text("No $title found!"),
-        ],
-      ),
-    );
-  }
+  // static noDataFound(String title) {
+  //   return Center(
+  //     child: Column(
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       crossAxisAlignment: CrossAxisAlignment.center,
+  //       children: [
+  //         Image.asset(
+  //           Constants.noDataFoundImage,
+  //           height: 250,
+  //         ),
+  //         Text("No $title found!"),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   // Global function to get unique device id
   static getUniqueId() async {

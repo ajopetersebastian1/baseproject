@@ -7,7 +7,7 @@ class UserServices {
 
   loginService(requestModel) async {
     Connection connection = Connection();
-    var url = EndPoints.baseApi9502 + EndPoints.loginAPI;
+    var url = EndPoints.baseLogin + EndPoints.loginAPI;
     print(url);
     var response = await connection.postWithOutToken(url, requestModel);
     return response;

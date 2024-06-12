@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
   UserServices userServices = UserServices();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = TextEditingController();
-  String password = "Password";
+
   String pin = "PIN";
   var keyboardType = TextInputType.text;
   final FocusNode _focusNode = FocusNode();
@@ -47,7 +47,6 @@ class _LoginPageState extends State<LoginPage> {
   late bool _isLoading = false;
   bool hidePassword = true;
   bool isFinished = false;
-  final List<bool> _activeToggleMenu = [true, false];
   AlertService alertWidget = AlertService();
 
   @override
@@ -143,23 +142,13 @@ class _LoginPageState extends State<LoginPage> {
   submitLoginForm() async {
     if (_formKey.currentState!.validate()) {
       setLoading(true);
+      requestModel.password = requestModel.password.toString();
       _formKey.currentState!.save();
-      requestModel.instId = Constants.instId;
       requestModel.deviceType = Constants.deviceType;
-      requestModel.deviceId =
-          await Validators.encrypt(await Global.getUniqueId());
-      password == 'Password'
-          ? requestModel.pin = null
-          : requestModel.password = null;
-      if (password == 'Password') {
-        requestModel.pin = null;
-        requestModel.password =
-            await Validators.encrypt(requestModel.password.toString());
-      } else {
-        requestModel.password = null;
-        requestModel.pin =
-            await Validators.encrypt(requestModel.pin.toString());
-      }
+
+      requestModel.password = requestModel.password.toString();
+      //await Validators.encrypt(requestModel.password.toString());
+
       print(json.encode(requestModel));
       print("Login URL");
       _passwordController.clear();
@@ -170,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
         if (code == 200 || code == 201) {
           if (result['responseCode'] == "00") {
             saveSecureStorage(result);
-            Navigator.pushReplacementNamed(context, 'home');
+            Navigator.pushReplacementNamed(context, 'monitoring');
             setLoading(false);
           } else if (result['responseCode'] == "03") {
             setLoading(false);
@@ -249,6 +238,9 @@ class _LoginPageState extends State<LoginPage> {
             prefixIcon: Icon(Icons.person_2_outlined,
                 size: 25, color: Theme.of(context).primaryColor),
           ),
+          onChanged: (value) {
+            requestModel.userName = value;
+          },
           onSaved: (value) {
             requestModel.userName = value;
           },
@@ -277,41 +269,27 @@ class _LoginPageState extends State<LoginPage> {
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16),
         obscureText: hidePassword,
         obscuringCharacter: '*',
-        maxLength: password != 'Password' ? 4 : null,
         focusNode: _focusNode,
         keyboardType: keyboardType,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         onSaved: (value) {
-          password == 'Password'
-              ? requestModel.password = value
-              : requestModel.pin = value;
+          requestModel.password = value;
+        },
+        onChanged: (value) {
+          requestModel.password = value;
         },
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please enter $password!';
-          }
-          if (password == 'Password') {
-            // if (!Validators.isPassword(value)) {
-            //   return Constants.passwordError;
-            // }
-          } else {
-            if (value.length != 4) {
-              return 'Login PIN must be 4 digits';
-            }
-            if (Validators.isConsecutive(value) != -1) {
-              return 'Login PIN should not be consecutive digits.';
-            }
+            return 'Please enter Password!';
           }
 
           return null;
         },
         inputFormatters: <TextInputFormatter>[
-          password != 'Password'
-              ? FilteringTextInputFormatter.digitsOnly
-              : FilteringTextInputFormatter.singleLineFormatter
+          FilteringTextInputFormatter.singleLineFormatter
         ],
         decoration: InputDecoration(
-          labelText: '$password *',
+          labelText: 'Password *',
           counterText: "",
           labelStyle:
               Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16),
@@ -348,21 +326,11 @@ class _LoginPageState extends State<LoginPage> {
         onPressed: () {
           _passwordController.clear();
           setState(() {
-            if (password == 'Password') {
-              _focusNode.unfocus();
-              keyboardType = TextInputType.number;
-              Future.delayed(const Duration(milliseconds: 150)).then((value) {
-                _focusNode.requestFocus();
-              });
-            } else {
-              _focusNode.unfocus();
-              keyboardType = TextInputType.text;
-              Future.delayed(const Duration(milliseconds: 150)).then((value) {
-                _focusNode.requestFocus();
-              });
-            }
-            password == 'Password' ? password = 'PIN' : password = 'Password';
-            pin == 'PIN' ? pin = 'Password' : pin = 'PIN';
+            _focusNode.unfocus();
+            keyboardType = TextInputType.number;
+            Future.delayed(const Duration(milliseconds: 150)).then((value) {
+              _focusNode.requestFocus();
+            });
           });
         },
         child: Text(
@@ -380,9 +348,9 @@ class _LoginPageState extends State<LoginPage> {
   forgotPassword() {
     return TextButton(
       onPressed: () {
-        Navigator.pushNamed(context, 'forgotPage', arguments: password);
+        // Navigator.pushNamed(context, 'forgotPage', arguments: password);
       },
-      child: Text("Forgot $password?",
+      child: Text("Forgot Password?",
           style: Theme.of(context)
               .textTheme
               .bodyLarge
@@ -420,8 +388,8 @@ class _LoginPageState extends State<LoginPage> {
         activeThumbColor: Theme.of(context).primaryColor,
         activeTrackColor: Theme.of(context).primaryColor.withOpacity(0.7),
         onSwipe: () {
-          Navigator.pushReplacementNamed(context, 'monitoring');
-          // submitLoginForm();
+          // Navigator.pushReplacementNamed(context, 'monitoring');
+          submitLoginForm();
         },
         child: const Text(
           "Swipe to Login",

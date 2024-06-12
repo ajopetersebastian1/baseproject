@@ -106,8 +106,8 @@ class DataMonitoringProvider with ChangeNotifier {
         reversal: 334,
         percentage: 43.0),
   ];
-  getDashboardData() async {
-    response = await monitoringService.getDashboardData(requestModel);
+  getDashboardData() {
+    response = monitoringService.getDashboardData(requestModel);
   }
 
   setDefaultValues() {

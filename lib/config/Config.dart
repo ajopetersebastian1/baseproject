@@ -1,10 +1,3 @@
-/* ===============================================================
-| Project : SIFR
-| Page    : CONFIG.DART
-| Date    : 21-MAR-2023
-|
-*  ===============================================================*/
-//Export dart files
 export 'app_color.dart';
 export 'constants.dart';
 export 'endpoints.dart';

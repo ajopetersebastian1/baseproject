@@ -15,7 +15,6 @@ class SwitchMonitoring extends StatefulWidget {
 
 class _SwitchMonitoringState extends State<SwitchMonitoring>
     with SingleTickerProviderStateMixin {
- 
   late DataMonitoringProvider dataMonitoringProvider;
   bool isDarkMode = false;
   late TabController _tabController;
@@ -26,14 +25,15 @@ class _SwitchMonitoringState extends State<SwitchMonitoring>
       dataMonitoringProvider =
           Provider.of<DataMonitoringProvider>(context, listen: false);
       dataMonitoringProvider.setDefaultValues();
+      dataMonitoringProvider.getDashboardData();
     });
-    _tabController = TabController(length: 5, vsync: this);
+
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
     isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
     // dataMonitoringProvider =
     //     Provider.of<DataMonitoringProvider>(context, listen: false);
     var list = [
@@ -49,14 +49,10 @@ class _SwitchMonitoringState extends State<SwitchMonitoring>
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize:
-              Size.fromHeight(MediaQuery.of(context).size.height / 5),
+              Size.fromHeight(MediaQuery.of(context).size.height / 4),
           child: TabBar(
             controller: _tabController,
             tabs: const [
-              Tab(
-                icon: Icon(Icons.timelapse_outlined),
-                text: "2 hrs",
-              ),
               Tab(
                 icon: Icon(Icons.sunny),
                 text: "Today",

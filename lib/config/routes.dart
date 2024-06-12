@@ -1,18 +1,7 @@
-// ignore_for_file: unused_import
-
-/* ===============================================================
-| Project : SIFR
-| Page    : ROUTES.DART
-| Date    : 22-MAR-2023
-|
-*  ===============================================================*/
-
-// Dependencies or Plugins - Models - Services - Global Functions
 import 'package:baseproject/pages/monitoring/switch_monitoring.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../pages/home/home_page.dart';
 import '../pages/pages.dart';
 
 import '../pages/users/login/login_page.dart';
@@ -37,8 +26,6 @@ class CustomRoute {
           return const SplashScreen();
         case "login":
           return const LoginPage();
-        case "home":
-          return const HomePage();
         case "monitoring":
           return const SwitchMonitoring();
       }

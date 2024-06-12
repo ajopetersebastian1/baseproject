@@ -1,11 +1,3 @@
-/* ===============================================================
-| Project : SIFR
-| Page    : APP_COLOR.DART
-| Date    : 21-MAR-2023
-|
-*  ===============================================================*/
-
-// Dependencies or Plugins - Models - Services - Global Functions
 import 'package:flutter/material.dart';
 
 class AppColors {

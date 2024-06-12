@@ -6,8 +6,7 @@ class MonitoringService {
     Connection connection = Connection();
     var url = EndPoints.baseSwitchMonitoring + EndPoints.dashBoardData;
     print(url);
-    var response = await connection.postWithOutToken(url, requestModel);
+    var response = await connection.post(url, requestModel);
     return response;
   }
 }
-

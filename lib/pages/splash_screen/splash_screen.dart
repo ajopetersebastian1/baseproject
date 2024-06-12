@@ -7,6 +7,7 @@
 
 // Dependencies or Plugins - Models - Services - Global Functions
 import 'dart:async';
+import 'package:baseproject/gen/assets.gen.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -38,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     // isRooted();
-    Future.delayed(const Duration(seconds: 0), () {
+    Future.delayed(const Duration(seconds: 1), () {
       getValidationData();
     });
     super.initState();
@@ -63,14 +64,14 @@ class _SplashScreenState extends State<SplashScreen> {
       List check = await Global.availableBiometrics();
       if (check.isEmpty) {
         if (!mounted) return;
-        Navigator.pushReplacementNamed(context, 'home');
+        Navigator.pushReplacementNamed(context, 'monitoring');
       } else {
         bool isEnableBioMetric = boxStorage.get('isEnableBioMetric') ?? false;
         if (isEnableBioMetric) {
           var authentication = await Global.authenticate();
           if (authentication && authentication != null) {
             if (!mounted) return;
-            Navigator.pushReplacementNamed(context, 'home');
+            Navigator.pushReplacementNamed(context, 'monitoring');
           } else if (authentication == false) {
             SystemNavigator.pop();
           } else {
@@ -84,7 +85,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 context, 'loginWithPin', (route) => false);
           } else if (isLoggedIn) {
             if (!mounted) return;
-            Navigator.pushReplacementNamed(context, 'home');
+            Navigator.pushReplacementNamed(context, 'monitoring');
           } else {
             if (!mounted) return;
             Navigator.pushReplacementNamed(context, 'login');
@@ -104,32 +105,35 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return EasySplashScreen(
-      logo: Image.asset('assets/logo/logo1.png'),
-      logoWidth: 150,
-      title: Text(
-        "Withdraw Cash",
-        style: Theme.of(context)
-            .textTheme
-            .titleLarge
-            ?.copyWith(fontWeight: FontWeight.bold, fontSize: 24),
+    return Scaffold(
+      body: Center(
+        child: Image.asset(Assets.images.alliance.path),
       ),
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      showLoader: false,
-      // navigator: isLoggedIn == false ? const LoginPage() : const HomePage(),
-      navigator: dynamicNavigation(),
-      durationInSeconds: 5,
+      // logo: Image.asset(Assets.images.alliance.path),
+      // logoWidth: 150,
+      // title: Text(
+      //   "Switch Monitoring",
+      //   style: Theme.of(context)
+      //       .textTheme
+      //       .titleLarge
+      //       ?.copyWith(fontWeight: FontWeight.bold, fontSize: 24),
+      // ),
+      // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      // showLoader: false,
+      // // navigator: isLoggedIn == false ? const LoginPage() : const monitoringPage(),
+      // navigator: dynamicNavigation(),
+      // durationInSeconds: 5,
     );
   }
 
-  dynamicNavigation() async {
-    debugPrint("--- Dynamic Navigation ---");
-    return isLoggedIn == false
-        ? const Scaffold(
-            body: Center(child: Text("logged in")),
-          )
-        : const Scaffold(
-            body: Center(child: Text("Not logged in")),
-          );
-  }
+  // dynamicNavigation() async {
+  //   debugPrint("--- Dynamic Navigation ---");
+  //   return isLoggedIn == false
+  //       ? const Scaffold(
+  //           body: Center(child: Text("logged in")),
+  //         )
+  //       : const Scaffold(
+  //           body: Center(child: Text("Not logged in")),
+  //         );
+  // }
 }
