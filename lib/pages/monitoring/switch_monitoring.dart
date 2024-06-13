@@ -24,7 +24,7 @@ class _SwitchMonitoringState extends State<SwitchMonitoring>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       dataMonitoringProvider =
           Provider.of<DataMonitoringProvider>(context, listen: false);
-      dataMonitoringProvider.setDefaultValues();
+      //dataMonitoringProvider.setDefaultValues();
       dataMonitoringProvider.getDashboardData();
     });
 
@@ -33,6 +33,7 @@ class _SwitchMonitoringState extends State<SwitchMonitoring>
 
   @override
   Widget build(BuildContext context) {
+    print("build called");
     isDarkMode = Theme.of(context).brightness == Brightness.dark;
     // dataMonitoringProvider =
     //     Provider.of<DataMonitoringProvider>(context, listen: false);
@@ -223,7 +224,15 @@ class _SwitchMonitoringState extends State<SwitchMonitoring>
                   .toList(),
             ),
             // Data Rows
-
+            // TableRow(
+            //   children: [
+            //     _buildTableCell("Visa"),
+            //     _buildTableCell(dataProvider.todayData[0]["visaApprovedCount"]),
+            //     _buildTableCell(dataProvider.todayData[0]["visaDeclinedCount"]),
+            //     _buildTableCell("1"),
+            //     _buildTableCell("1"),
+            //   ],
+            // )
             ...dataProvider.uiData.map((data) {
               return TableRow(
                 children: [

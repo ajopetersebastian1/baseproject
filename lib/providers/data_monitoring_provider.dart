@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:baseproject/services/monitoring_service.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +11,9 @@ class DataMonitoringProvider with ChangeNotifier {
   var headers = ["Schemes", "Approved", "Decline", "Reversal", "%"];
   var headereTwo = ["Overall", "Approved", "Decline", "Reversal", "%"];
   MonitoringService monitoringService = MonitoringService();
+  List currentWeekData = [];
+  var currentMonthData;
+  var todayData;
   var requestModel = {
     "appProductId": "6",
     "instId": "ADIBOMA0001",
@@ -106,20 +111,109 @@ class DataMonitoringProvider with ChangeNotifier {
         reversal: 334,
         percentage: 43.0),
   ];
-  getDashboardData() {
-    response = monitoringService.getDashboardData(requestModel);
+  getDashboardData() async {
+    int month = DateTime.now().month;
+    print("month $month");
+    await monitoringService
+        .getDashboardData(requestModel)
+        .then((response) async {
+      final Map<String, dynamic> data = json.decode(response.body);
+      currentWeekData = data['data'][0]['weeklyTxnCount'];
+      todayData = data['data'][0]['todayTxnWiseCount'][0];
+      currentMonthData = data['data'][0]['monthlyTxnCount'][month - 1];
+      for (var items in currentWeekData) {
+        print(items);
+      }
+    });
+    setDefaultValues();
+    notifyListeners();
   }
 
   setDefaultValues() {
-    uiData = _twoHours;
+    uiData = [
+      MonitoringTableModel(
+          schemeName: "visa",
+          approved: todayData["visaApprovedCount"],
+          declined: todayData["visaApprovedCount"],
+          reversal: todayData["visaApprovedCount"],
+          percentage: todayData["visaApprovedCount"].toDouble()),
+      MonitoringTableModel(
+          schemeName: "Master",
+          approved: todayData["visaApprovedCount"],
+          declined: todayData["visaApprovedCount"],
+          reversal: todayData["visaApprovedCount"],
+          percentage: todayData["visaApprovedCount"].toDouble()),
+    ];
+
+    // for (var items in todayData) {
+    //   uiData = [
+    //     MonitoringTableModel(
+    //         schemeName: "visa",
+    //         approved: items["visaApprovedCount"],
+    //         declined: items["visaApprovedCount"],
+    //         reversal: items["visaApprovedCount"],
+    //         percentage: items["visaApprovedCount"].toDouble())
+    //   ];
+    // }
+    // uiData = uiData = _twoHours;
     notifyListeners();
   }
 
   void changeMonitoringInfo({required int tabIndex}) {
-    final dataSets = [_twoHours, _today, _week, _month, _custom];
-    uiData = dataSets[tabIndex];
+    print("Tab index$tabIndex");
+    if (tabIndex == 0) {
+      setDefaultValues();
+    } else if (tabIndex == 1) {
+      num visaApprovedCount = 0;
+      num visaDeclineCount = 0;
+      num visaReversalCount = 0;
+      num masterApprovedCount = 0;
+      num masterDeclineCount = 0;
+      num masterReversalCount = 0;
 
-    print(tabIndex);
+      for (var item in currentWeekData) {
+        visaApprovedCount += item["visaApprovedCount"];
+        visaDeclineCount += item["visaDeclinedCount"];
+        visaReversalCount += item["visaApprovedCountRefund"];
+        masterApprovedCount += item["mcrdApprovedCount"];
+        masterDeclineCount += item["mcrdDeclinedCount"];
+        masterReversalCount += item["mcrdApprovedCountRefund"];
+        // print(item);
+      }
+      uiData = [
+        MonitoringTableModel(
+            schemeName: "visa",
+            approved: visaApprovedCount.toInt(),
+            declined: visaDeclineCount.toInt(),
+            reversal: visaReversalCount.toInt(),
+            percentage: todayData["visaApprovedCount"].toDouble()),
+        MonitoringTableModel(
+            schemeName: "Master",
+            approved: masterApprovedCount.toInt(),
+            declined: masterDeclineCount.toInt(),
+            reversal: masterReversalCount.toInt(),
+            percentage: todayData["visaApprovedCount"].toDouble()),
+      ];
+    } else if (tabIndex == 2) {
+      print(currentMonthData);
+      uiData = [
+        MonitoringTableModel(
+            schemeName: "visa",
+            approved: currentMonthData["visaApprovedCount"],
+            declined: currentMonthData["visaDeclinedCount"],
+            reversal: currentMonthData["visaApprovedCountRefund"],
+            percentage: currentMonthData["visaApprovedCount"].toDouble()),
+        MonitoringTableModel(
+            schemeName: "Master",
+            approved: currentMonthData["mcrdApprovedCount"],
+            declined: currentMonthData["mcrdDeclinedCount"],
+            reversal: currentMonthData["mcrdApprovedCountRefund"],
+            percentage: currentMonthData["visaApprovedCount"].toDouble()),
+      ];
+    }
+    // final dataSets = [_twoHours, _today, _week, _month, _custom];
+    // uiData = dataSets[tabIndex];
+
     notifyListeners();
   }
 }
