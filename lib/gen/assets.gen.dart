@@ -23,8 +23,8 @@ class $AssetsImagesGen {
   AssetGenImage get mastercard =>
       const AssetGenImage('assets/images/Mastercard.png');
 
-  /// File path: assets/images/Visa.png
-  AssetGenImage get visa => const AssetGenImage('assets/images/Visa.png');
+  /// File path: assets/images/visa.png
+  AssetGenImage get visa => const AssetGenImage('assets/images/visa.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [adib, alliance, mastercard, visa];

@@ -32,6 +32,7 @@ class _LoginPageState extends State<LoginPage> {
   UserServices userServices = UserServices();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = TextEditingController();
+  final List<bool> _activeToggleMenu = [true, false];
 
   String pin = "PIN";
   var keyboardType = TextInputType.text;
@@ -95,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
           Align(
             alignment: Alignment.center,
             child: Text(
-              "Switch Monitoring",
+              "OMA Wallet",
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontSize: 25,
@@ -119,14 +120,14 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           const SizedBox(height: 20),
-          // toggledButton(),
+          toggledButton(),
           const SizedBox(height: 10),
           userNameField(),
           passwordField(),
           const SizedBox(height: 10.0),
           //login(),
           Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-            // forgotUserName(),
+            forgotUserName(),
             forgotPassword(),
           ]),
           const SizedBox(height: 10),
@@ -214,6 +215,53 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       _isLoading = tf;
     });
+  }
+
+  toggledButton() {
+    return Center(
+      child: Container(
+        height: 45,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border:
+                Border.all(width: 1.5, color: Theme.of(context).primaryColor),
+            borderRadius: BorderRadius.circular(50)),
+        child: ToggleButtons(
+          borderWidth: 2,
+          borderColor: Colors.white,
+          selectedBorderColor: Colors.white,
+          borderRadius: BorderRadius.circular(50),
+          tapTargetSize: MaterialTapTargetSize.padded,
+          color: Theme.of(context).primaryColor,
+          fillColor: Theme.of(context).primaryColor,
+          selectedColor: Colors.white,
+          splashColor: Theme.of(context).primaryColor,
+          textStyle: const TextStyle(fontWeight: FontWeight.bold),
+          renderBorder: true,
+          onPressed: (int index) {
+            if (index == 1) {
+              Navigator.pushNamed(context, 'signUp');
+              // Navigator.pushNamed(context, 'signUp');
+            }
+          },
+          isSelected: _activeToggleMenu,
+          children: const <Widget>[
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: Text(
+                  "Login",
+                  style: TextStyle(fontSize: 14),
+                )),
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 35),
+                child: Text(
+                  "SignUp",
+                  style: TextStyle(fontSize: 14),
+                )),
+          ],
+        ),
+      ),
+    );
   }
 
   userNameField() {
@@ -361,9 +409,9 @@ class _LoginPageState extends State<LoginPage> {
   forgotUserName() {
     return TextButton(
       onPressed: () {
-        Navigator.pushNamed(context, 'forgotUserName');
+        // Navigator.pushNamed(context, 'forgotUserName');
       },
-      child: Text("Forgot Username?",
+      child: Text("Register",
           style: Theme.of(context)
               .textTheme
               .bodyLarge
@@ -388,8 +436,8 @@ class _LoginPageState extends State<LoginPage> {
         activeThumbColor: Theme.of(context).primaryColor,
         activeTrackColor: Theme.of(context).primaryColor.withOpacity(0.7),
         onSwipe: () {
-          // Navigator.pushReplacementNamed(context, 'monitoring');
-          submitLoginForm();
+          Navigator.pushReplacementNamed(context, 'home');
+          // submitLoginForm();
         },
         child: const Text(
           "Swipe to Login",

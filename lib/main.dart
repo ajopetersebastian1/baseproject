@@ -84,7 +84,7 @@ class MainPage extends StatelessWidget {
         builder: (c, themeProvider, home) => MaterialApp(
           debugShowCheckedModeBanner: false,
           scaffoldMessengerKey: StateKey.snackBarKey,
-          initialRoute: 'splash',
+          initialRoute: 'intro',
           onGenerateRoute: CustomRoute.allRoutes,
           navigatorKey: navigatorKey,
           locale: Locale(themeProvider.currentLanguage),
